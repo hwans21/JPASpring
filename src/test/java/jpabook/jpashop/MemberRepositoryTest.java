@@ -1,5 +1,7 @@
 package jpabook.jpashop;
 
+import jpabook.jpashop.entity.Member;
+import jpabook.jpashop.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,15 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MemberRepositoryTest {
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     @Transactional  // 테스트에 있으면 기본적으로 롤백을 한다.
     @Rollback(false) // 테스트에서 실행한 쿼리를 저장하고 싶을때
     public void testMember() throws Exception {
         //given
-        Member member = new Member();
-        member.setUsername("memberA");
+        Member member = new Member("memberA");
 
         //when
         Long saveId = memberRepository.save(member);
